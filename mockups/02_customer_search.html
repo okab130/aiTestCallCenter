@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顧客検索 - コールセンターシステム</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .panel h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead {
+            background-color: #f8f9fa;
+        }
+        th {
+            padding: 12px;
+            text-align: left;
+            font-size: 13px;
+            color: #555;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 14px;
+        }
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .customer-rank {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .rank-vip {
+            background-color: #f39c12;
+            color: white;
+        }
+        .rank-standard {
+            background-color: #3498db;
+            color: white;
+        }
+        .rank-new {
+            background-color: #27ae60;
+            color: white;
+        }
+        .action-btn {
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .page-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📞 コールセンターシステム</h1>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span style="padding: 5px 12px; background-color: #27ae60; border-radius: 12px; font-size: 12px;">対応可能</span>
+            <span>山田 太郎（オペレーター）</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="01_dashboard.html">ホーム</a> &gt; 顧客検索
+        </div>
+
+        <div class="panel">
+            <h2>🔍 顧客検索</h2>
+            <form class="search-form">
+                <div class="form-group">
+                    <label for="phone">電話番号</label>
+                    <input type="text" id="phone" placeholder="例: 03-1234-5678">
+                </div>
+                <div class="form-group">
+                    <label for="customer-code">顧客コード</label>
+                    <input type="text" id="customer-code" placeholder="例: CUS-0001">
+                </div>
+                <div class="form-group">
+                    <label for="name">氏名</label>
+                    <input type="text" id="name" placeholder="例: 山田">
+                </div>
+                <div class="form-group">
+                    <label for="name-kana">氏名カナ</label>
+                    <input type="text" id="name-kana" placeholder="例: ヤマダ">
+                </div>
+            </form>
+            <div class="button-group">
+                <button class="btn btn-primary">🔍 検索</button>
+                <button class="btn btn-secondary">クリア</button>
+                <button class="btn btn-success" style="margin-left: auto;">➕ 新規顧客登録</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>検索結果 (15件)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>顧客コード</th>
+                        <th>顧客名</th>
+                        <th>顧客ランク</th>
+                        <th>電話番号</th>
+                        <th>メールアドレス</th>
+                        <th>登録日</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CUS-00123</td>
+                        <td>佐藤商事株式会社</td>
+                        <td><span class="customer-rank rank-vip">VIP</span></td>
+                        <td>03-1234-5678</td>
+                        <td>sato@example.com</td>
+                        <td>2023-04-15</td>
+                        <td><button class="action-btn">詳細</button></td>
+                    </tr>
+                    <tr>
+                        <td>CUS-00089</td>
+                        <td>田中 花子</td>
+                        <td><span class="customer-rank rank-standard">標準</span></td>
+                        <td>090-1234-5678</td>
+                        <td>tanaka@example.com</td>
+                        <td>2023-07-22</td>
+                        <td><button class="action-btn">詳細</button></td>
+                    </tr>
+                    <tr>
+                        <td>CUS-00456</td>
+                        <td>鈴木 一郎</td>
+                        <td><span class="customer-rank rank-standard">標準</span></td>
+                        <td>080-9876-5432</td>
+                        <td>suzuki@example.com</td>
+                        <td>2024-01-10</td>
+                        <td><button class="action-btn">詳細</button></td>
+                    </tr>
+                    <tr>
+                        <td>CUS-00789</td>
+                        <td>高橋物産株式会社</td>
+                        <td><span class="customer-rank rank-vip">VIP</span></td>
+                        <td>06-5555-6666</td>
+                        <td>takahashi@example.com</td>
+                        <td>2022-11-05</td>
+                        <td><button class="action-btn">詳細</button></td>
+                    </tr>
+                    <tr>
+                        <td>CUS-01234</td>
+                        <td>伊藤 美咲</td>
+                        <td><span class="customer-rank rank-new">新規</span></td>
+                        <td>070-1111-2222</td>
+                        <td>ito@example.com</td>
+                        <td>2025-11-01</td>
+                        <td><button class="action-btn">詳細</button></td>
+                    </tr>
+                    <tr>
+                        <td>CUS-00567</td>
+                        <td>渡辺 健太</td>
+                        <td><span class="customer-rank rank-standard">標準</span></td>
+                        <td>090-3333-4444</td>
+                        <td>watanabe@example.com</td>
+                        <td>2024-06-18</td>
+                        <td><button class="action-btn">詳細</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="page-btn">‹ 前へ</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">次へ ›</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

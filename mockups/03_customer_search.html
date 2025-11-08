@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顧客検索・登録 - コールセンターシステム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .user-info {
+            color: white;
+            font-size: 14px;
+        }
+        .main-content {
+            padding: 30px;
+        }
+        .search-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .customer-rank-vip {
+            color: #ffc107;
+        }
+        .customer-rank-standard {
+            color: #6c757d;
+        }
+        .customer-rank-new {
+            color: #28a745;
+        }
+        .blacklist-warning {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .register-modal .modal-body {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="02_dashboard.html">📞 コールセンターシステム</a>
+            <div class="d-flex align-items-center">
+                <span class="user-info me-3">
+                    <i class="bi bi-person-circle"></i> オペレーター: 田中 太郎
+                </span>
+                <button class="btn btn-outline-light btn-sm">ログアウト</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="mb-4">
+            <h2>顧客検索・登録</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="02_dashboard.html">ダッシュボード</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">顧客検索</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- 検索フォーム -->
+        <div class="search-card">
+            <h5 class="mb-4"><i class="bi bi-search"></i> 顧客検索</h5>
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="phone" class="form-label">電話番号</label>
+                        <input type="text" class="form-control" id="phone" placeholder="例: 090-1234-5678">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="customerCode" class="form-label">顧客コード</label>
+                        <input type="text" class="form-control" id="customerCode" placeholder="例: C00001">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="name" class="form-label">氏名</label>
+                        <input type="text" class="form-control" id="name" placeholder="例: 山田">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="nameKana" class="form-label">氏名カナ</label>
+                        <input type="text" class="form-control" id="nameKana" placeholder="例: ヤマダ">
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="bi bi-search"></i> 検索
+                        </button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            <i class="bi bi-plus-circle"></i> 新規顧客登録
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 検索結果 -->
+        <div class="result-card">
+            <h5 class="mb-3">検索結果: 3件</h5>
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>顧客コード</th>
+                        <th>氏名</th>
+                        <th>氏名カナ</th>
+                        <th>電話番号</th>
+                        <th>メールアドレス</th>
+                        <th>ランク</th>
+                        <th>登録日</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>C00001</strong></td>
+                        <td>山田 花子</td>
+                        <td>ヤマダ ハナコ</td>
+                        <td>090-1234-5678</td>
+                        <td>yamada@example.com</td>
+                        <td><span class="customer-rank-vip"><i class="bi bi-star-fill"></i> VIP</span></td>
+                        <td>2024-01-15</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">選択</button>
+                            <button class="btn btn-sm btn-outline-secondary">詳細</button>
+                        </td>
+                    </tr>
+                    <tr style="background-color: #ffe6e6;">
+                        <td><strong>C00025</strong></td>
+                        <td>田中 次郎</td>
+                        <td>タナカ ジロウ</td>
+                        <td>080-9876-5432</td>
+                        <td>tanaka@example.com</td>
+                        <td>
+                            <span class="customer-rank-standard"><i class="bi bi-circle"></i> 標準</span>
+                            <span class="blacklist-warning ms-2"><i class="bi bi-exclamation-triangle"></i> ブラックリスト</span>
+                        </td>
+                        <td>2023-05-20</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">選択</button>
+                            <button class="btn btn-sm btn-outline-secondary">詳細</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>C00142</strong></td>
+                        <td>佐藤 三郎</td>
+                        <td>サトウ サブロウ</td>
+                        <td>070-1111-2222</td>
+                        <td>sato@example.com</td>
+                        <td><span class="customer-rank-standard"><i class="bi bi-circle"></i> 標準</span></td>
+                        <td>2024-08-10</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">選択</button>
+                            <button class="btn btn-sm btn-outline-secondary">詳細</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 新規顧客登録モーダル -->
+    <div class="modal fade register-modal" id="registerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-person-plus"></i> 新規顧客登録</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <h6 class="mb-3 text-primary">基本情報 <span class="text-danger">*必須</span></h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">顧客区分 <span class="text-danger">*</span></label>
+                                <select class="form-select" required>
+                                    <option value="">選択してください</option>
+                                    <option value="individual">個人</option>
+                                    <option value="corporate">法人</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">法人名</label>
+                                <input type="text" class="form-control" placeholder="法人の場合のみ入力">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">姓 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">名 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">姓カナ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">名カナ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <h6 class="mb-3 text-primary">連絡先情報</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">電話番号（主） <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">電話番号（副）</label>
+                                <input type="tel" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">メールアドレス</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+
+                        <h6 class="mb-3 text-primary">住所情報</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">郵便番号</label>
+                                <input type="text" class="form-control" placeholder="例: 123-4567">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">都道府県</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">市区町村</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">住所1</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">住所2</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <h6 class="mb-3 text-primary">その他</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">生年月日</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">性別</label>
+                                <select class="form-select">
+                                    <option value="">選択してください</option>
+                                    <option value="male">男性</option>
+                                    <option value="female">女性</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary">登録</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問い合わせ登録 - コールセンターシステム</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+        }
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .panel h2 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .customer-info {
+            font-size: 13px;
+        }
+        .customer-info .field {
+            margin-bottom: 10px;
+        }
+        .customer-info .label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 3px;
+        }
+        .customer-info .value {
+            color: #2c3e50;
+        }
+        .customer-rank {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            background-color: #f39c12;
+            color: white;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .category-select {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .category-select select {
+            flex: 1;
+        }
+        .priority-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .priority-option {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .priority-option:hover {
+            border-color: #3498db;
+        }
+        .priority-option.selected {
+            border-color: #3498db;
+            background-color: #ebf5fb;
+        }
+        .priority-option.urgent { border-color: #e74c3c; }
+        .priority-option.urgent.selected { background-color: #fadbd8; }
+        .priority-option.high { border-color: #f39c12; }
+        .priority-option.high.selected { background-color: #fef5e7; }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #27ae60;
+            color: white;
+            flex: 1;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .history-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 3px solid #3498db;
+            background-color: #f8f9fa;
+            font-size: 12px;
+        }
+        .history-date {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 3px;
+        }
+        .history-subject {
+            color: #2c3e50;
+        }
+        .faq-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .faq-item:hover {
+            background-color: #e9ecef;
+        }
+        .template-btn {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            background-color: #ecf0f1;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 12px;
+        }
+        .template-btn:hover {
+            background-color: #d5dbdb;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📞 コールセンターシステム</h1>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span style="padding: 5px 12px; background-color: #e74c3c; border-radius: 12px; font-size: 12px;">通話中</span>
+            <span>山田 太郎（オペレーター）</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="01_dashboard.html">ホーム</a> &gt; 問い合わせ登録
+        </div>
+
+        <div class="main-layout">
+            <!-- 左パネル：顧客情報 -->
+            <div>
+                <div class="panel">
+                    <h2>👤 顧客情報</h2>
+                    <div class="customer-info">
+                        <div class="field">
+                            <div class="label">顧客名</div>
+                            <div class="value">佐藤商事株式会社</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">顧客ランク</div>
+                            <div class="value"><span class="customer-rank">VIP</span></div>
+                        </div>
+                        <div class="field">
+                            <div class="label">電話番号</div>
+                            <div class="value">03-1234-5678</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">メール</div>
+                            <div class="value">sato@example.com</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">登録日</div>
+                            <div class="value">2023-04-15</div>
+                        </div>
+                        <div class="field">
+                            <div class="label">総問い合わせ数</div>
+                            <div class="value">45件</div>
+                        </div>
+                    </div>
+                    <button style="width: 100%; padding: 8px; margin-top: 10px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">詳細を表示</button>
+                </div>
+
+                <div class="panel" style="margin-top: 20px;">
+                    <h2>📋 過去の問い合わせ</h2>
+                    <div class="history-item">
+                        <div class="history-date">2025-10-28</div>
+                        <div class="history-subject">製品Aの操作方法について</div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-date">2025-09-15</div>
+                        <div class="history-subject">見積書の発行依頼</div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-date">2025-08-03</div>
+                        <div class="history-subject">納期の確認</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中央パネル：問い合わせ入力 -->
+            <div class="panel">
+                <h2>📝 問い合わせ登録</h2>
+                
+                <div class="form-group">
+                    <label for="subject">件名 <span class="required">*</span></label>
+                    <input type="text" id="subject" placeholder="問い合わせの件名を入力してください" required>
+                </div>
+
+                <div class="form-group">
+                    <label>カテゴリ <span class="required">*</span></label>
+                    <div class="category-select">
+                        <select id="category1" required>
+                            <option value="">大分類</option>
+                            <option value="product">製品関連</option>
+                            <option value="billing">請求・支払</option>
+                            <option value="technical">技術サポート</option>
+                            <option value="other">その他</option>
+                        </select>
+                        <select id="category2">
+                            <option value="">中分類</option>
+                            <option value="malfunction">故障・不具合</option>
+                            <option value="usage">使用方法</option>
+                            <option value="spec">仕様確認</option>
+                        </select>
+                        <select id="category3">
+                            <option value="">小分類</option>
+                            <option value="hardware">ハードウェア</option>
+                            <option value="software">ソフトウェア</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product">製品・サービス</label>
+                    <select id="product">
+                        <option value="">選択してください</option>
+                        <option value="product-a">製品A</option>
+                        <option value="product-b">製品B</option>
+                        <option value="product-c">製品C</option>
+                        <option value="service-x">サービスX</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>優先度 <span class="required">*</span></label>
+                    <div class="priority-group">
+                        <div class="priority-option urgent">
+                            <input type="radio" name="priority" value="urgent" id="urgent" style="display: none;">
+                            <label for="urgent" style="cursor: pointer;">
+                                <div style="font-weight: 600; color: #e74c3c;">緊急</div>
+                                <div style="font-size: 11px; color: #666;">1時間以内</div>
+                            </label>
+                        </div>
+                        <div class="priority-option high">
+                            <input type="radio" name="priority" value="high" id="high" style="display: none;">
+                            <label for="high" style="cursor: pointer;">
+                                <div style="font-weight: 600; color: #f39c12;">高</div>
+                                <div style="font-size: 11px; color: #666;">4時間以内</div>
+                            </label>
+                        </div>
+                        <div class="priority-option selected">
+                            <input type="radio" name="priority" value="medium" id="medium" checked style="display: none;">
+                            <label for="medium" style="cursor: pointer;">
+                                <div style="font-weight: 600; color: #3498db;">中</div>
+                                <div style="font-size: 11px; color: #666;">24時間以内</div>
+                            </label>
+                        </div>
+                        <div class="priority-option">
+                            <input type="radio" name="priority" value="low" id="low" style="display: none;">
+                            <label for="low" style="cursor: pointer;">
+                                <div style="font-weight: 600; color: #95a5a6;">低</div>
+                                <div style="font-size: 11px; color: #666;">48時間以内</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">詳細内容 <span class="required">*</span></label>
+                    <textarea id="description" placeholder="問い合わせの詳細を入力してください" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">内部メモ</label>
+                    <textarea id="notes" placeholder="顧客には表示されない社内メモを入力できます" style="min-height: 80px;"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary">キャンセル</button>
+                    <button class="btn btn-primary">💾 登録して割当</button>
+                </div>
+            </div>
+
+            <!-- 右パネル：参考情報 -->
+            <div>
+                <div class="panel">
+                    <h2>💡 関連FAQ</h2>
+                    <div class="faq-item">
+                        <div style="font-weight: 600; margin-bottom: 3px;">製品Aの初期設定方法</div>
+                        <div style="color: #666;">閲覧: 234回</div>
+                    </div>
+                    <div class="faq-item">
+                        <div style="font-weight: 600; margin-bottom: 3px;">エラーコード001の対処法</div>
+                        <div style="color: #666;">閲覧: 189回</div>
+                    </div>
+                    <div class="faq-item">
+                        <div style="font-weight: 600; margin-bottom: 3px;">アップデート手順</div>
+                        <div style="color: #666;">閲覧: 156回</div>
+                    </div>
+                    <button style="width: 100%; padding: 8px; margin-top: 10px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">FAQ検索</button>
+                </div>
+
+                <div class="panel" style="margin-top: 20px;">
+                    <h2>📄 定型文</h2>
+                    <button class="template-btn">🔹 初回対応の挨拶</button>
+                    <button class="template-btn">🔹 調査依頼の案内</button>
+                    <button class="template-btn">🔹 エスカレーションの説明</button>
+                    <button class="template-btn">🔹 折り返し連絡の案内</button>
+                    <button class="template-btn">🔹 対応完了のお礼</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

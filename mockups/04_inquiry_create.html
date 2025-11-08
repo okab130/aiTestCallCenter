@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問い合わせ登録 - コールセンターシステム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .user-info {
+            color: white;
+            font-size: 14px;
+        }
+        .main-content {
+            padding: 30px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .customer-info-panel {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .customer-rank-vip {
+            color: #ffc107;
+        }
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        .required-mark {
+            color: #dc3545;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="02_dashboard.html">📞 コールセンターシステム</a>
+            <div class="d-flex align-items-center">
+                <span class="user-info me-3">
+                    <i class="bi bi-person-circle"></i> オペレーター: 田中 太郎
+                </span>
+                <button class="btn btn-outline-light btn-sm">ログアウト</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="mb-4">
+            <h2>問い合わせ登録</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="02_dashboard.html">ダッシュボード</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">問い合わせ登録</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="content-card">
+            <!-- 顧客情報表示 -->
+            <div class="customer-info-panel">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h6 class="mb-2"><i class="bi bi-person"></i> 顧客情報</h6>
+                        <p class="mb-1">
+                            <strong>山田 花子</strong> (ヤマダ ハナコ) 
+                            <span class="customer-rank-vip ms-2"><i class="bi bi-star-fill"></i> VIP</span>
+                        </p>
+                        <p class="mb-1 text-muted">顧客コード: C00001 | 電話番号: 090-1234-5678</p>
+                        <p class="mb-0 text-muted">メール: yamada@example.com | 登録日: 2024-01-15</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-sm btn-outline-secondary">顧客を変更</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問い合わせ情報入力 -->
+            <form>
+                <div class="form-section">
+                    <h5 class="mb-4 text-primary">
+                        <i class="bi bi-clipboard"></i> 問い合わせ基本情報
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">
+                            件名 <span class="required-mark">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="subject" 
+                               placeholder="問い合わせ内容を簡潔に入力してください" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">
+                            詳細内容 <span class="required-mark">*</span>
+                        </label>
+                        <textarea class="form-control" id="description" rows="6" 
+                                  placeholder="問い合わせの詳細内容を入力してください" required></textarea>
+                        <div class="form-text">顧客からの問い合わせ内容をできるだけ詳しく記録してください</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5 class="mb-4 text-primary">
+                        <i class="bi bi-tags"></i> 分類・属性
+                    </h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="categoryLarge" class="form-label">カテゴリ（大分類）</label>
+                            <select class="form-select" id="categoryLarge">
+                                <option value="">選択してください</option>
+                                <option value="1">製品関連</option>
+                                <option value="2">請求関連</option>
+                                <option value="3">技術サポート</option>
+                                <option value="4">契約・解約</option>
+                                <option value="5">その他</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="categoryMedium" class="form-label">カテゴリ（中分類）</label>
+                            <select class="form-select" id="categoryMedium" disabled>
+                                <option value="">大分類を先に選択</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="categorySmall" class="form-label">カテゴリ（小分類）</label>
+                            <select class="form-select" id="categorySmall" disabled>
+                                <option value="">中分類を先に選択</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="product" class="form-label">製品・サービス</label>
+                            <select class="form-select" id="product">
+                                <option value="">選択してください</option>
+                                <option value="1">製品A - スタンダード版</option>
+                                <option value="2">製品A - プロ版</option>
+                                <option value="3">製品B - ベーシック</option>
+                                <option value="4">製品B - アドバンス</option>
+                                <option value="5">サービスC - 月額プラン</option>
+                                <option value="6">サービスC - 年額プラン</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="priority" class="form-label">
+                                優先度 <span class="required-mark">*</span>
+                            </label>
+                            <select class="form-select" id="priority" required>
+                                <option value="">選択してください</option>
+                                <option value="low">低 (SLA: 48時間)</option>
+                                <option value="medium" selected>中 (SLA: 24時間)</option>
+                                <option value="high">高 (SLA: 4時間)</option>
+                                <option value="urgent">緊急 (SLA: 1時間)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5 class="mb-4 text-primary">
+                        <i class="bi bi-person-check"></i> 担当者割当
+                    </h5>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">割当方法</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="assignMethod" 
+                                           id="assignAuto" value="auto" checked>
+                                    <label class="form-check-label" for="assignAuto">
+                                        自動割当（ラウンドロビン）
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="assignMethod" 
+                                           id="assignManual" value="manual">
+                                    <label class="form-check-label" for="assignManual">
+                                        手動割当
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="assignMethod" 
+                                           id="assignSelf" value="self">
+                                    <label class="form-check-label" for="assignSelf">
+                                        自分が担当
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="assignedUser" class="form-label">担当者</label>
+                            <select class="form-select" id="assignedUser" disabled>
+                                <option value="">自動で割り当てられます</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5 class="mb-4 text-primary">
+                        <i class="bi bi-pencil-square"></i> 初回対応内容
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="initialResponse" class="form-label">対応内容</label>
+                        <textarea class="form-control" id="initialResponse" rows="4" 
+                                  placeholder="この問い合わせに対する初回対応内容を記録してください（任意）"></textarea>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="initialStatus" class="form-label">初期ステータス</label>
+                            <select class="form-select" id="initialStatus">
+                                <option value="new" selected>新規</option>
+                                <option value="assigned">割当済み</option>
+                                <option value="in_progress">対応中</option>
+                                <option value="resolved">解決済み</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" role="alert">
+                    <i class="bi bi-info-circle"></i> 
+                    問い合わせ番号は自動採番されます（形式: INQ-YYYYMMDD-XXXX）
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> キャンセル
+                    </button>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary me-2">
+                            <i class="bi bi-save"></i> 下書き保存
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> 問い合わせを登録
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 割当方法の変更時に担当者選択を有効化/無効化
+        document.querySelectorAll('input[name="assignMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const assignedUser = document.getElementById('assignedUser');
+                if (this.value === 'manual') {
+                    assignedUser.disabled = false;
+                    assignedUser.innerHTML = `
+                        <option value="">選択してください</option>
+                        <option value="1">田中 太郎（自分）</option>
+                        <option value="2">佐藤 花子</option>
+                        <option value="3">鈴木 一郎</option>
+                        <option value="4">高橋 美咲</option>
+                    `;
+                } else if (this.value === 'self') {
+                    assignedUser.disabled = true;
+                    assignedUser.innerHTML = '<option value="1">田中 太郎（自分）</option>';
+                } else {
+                    assignedUser.disabled = true;
+                    assignedUser.innerHTML = '<option value="">自動で割り当てられます</option>';
+                }
+            });
+        });
+
+        // カテゴリの連動（サンプル）
+        document.getElementById('categoryLarge').addEventListener('change', function() {
+            const categoryMedium = document.getElementById('categoryMedium');
+            if (this.value) {
+                categoryMedium.disabled = false;
+                categoryMedium.innerHTML = `
+                    <option value="">選択してください</option>
+                    <option value="1">サブカテゴリ1</option>
+                    <option value="2">サブカテゴリ2</option>
+                    <option value="3">サブカテゴリ3</option>
+                `;
+            } else {
+                categoryMedium.disabled = true;
+                categoryMedium.innerHTML = '<option value="">大分類を先に選択</option>';
+            }
+        });
+    </script>
+</body>
+</html>

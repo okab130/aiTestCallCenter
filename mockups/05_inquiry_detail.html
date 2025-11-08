@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問い合わせ詳細 - コールセンターシステム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .user-info {
+            color: white;
+            font-size: 14px;
+        }
+        .main-content {
+            padding: 30px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .inquiry-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .inquiry-header h4 {
+            margin: 0 0 10px 0;
+        }
+        .badge-new { background-color: #17a2b8; }
+        .badge-assigned { background-color: #6c757d; }
+        .badge-in-progress { background-color: #007bff; }
+        .badge-pending { background-color: #ffc107; color: #000; }
+        .badge-resolved { background-color: #28a745; }
+        .priority-low { color: #6c757d; }
+        .priority-medium { color: #ffc107; }
+        .priority-high { color: #fd7e14; }
+        .priority-urgent { color: #dc3545; }
+        .customer-rank-vip {
+            color: #ffc107;
+        }
+        .info-row {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+            width: 150px;
+            display: inline-block;
+        }
+        .response-item {
+            border-left: 3px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .response-body {
+            color: #495057;
+        }
+        .sla-timer {
+            background-color: #fffbea;
+            border: 1px solid #ffc107;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .sla-timer.danger {
+            background-color: #ffe6e6;
+            border-color: #dc3545;
+        }
+        .sla-timer.safe {
+            background-color: #e6f4ea;
+            border-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="02_dashboard.html">📞 コールセンターシステム</a>
+            <div class="d-flex align-items-center">
+                <span class="user-info me-3">
+                    <i class="bi bi-person-circle"></i> オペレーター: 田中 太郎
+                </span>
+                <button class="btn btn-outline-light btn-sm">ログアウト</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="mb-4">
+            <h2>問い合わせ詳細</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="02_dashboard.html">ダッシュボード</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">問い合わせ詳細</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- 問い合わせヘッダー -->
+        <div class="inquiry-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h4><i class="bi bi-file-earmark-text"></i> INQ-20251108-0001</h4>
+                    <p class="mb-0">製品Aの使用方法について</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="mb-2">
+                        <span class="badge badge-in-progress fs-6">対応中</span>
+                        <span class="priority-high ms-2"><i class="bi bi-circle-fill"></i> 高</span>
+                    </div>
+                    <div class="sla-timer danger">
+                        <i class="bi bi-clock-history"></i> SLA期限まで: <strong>2時間15分</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <!-- タブナビゲーション -->
+            <ul class="nav nav-tabs mb-4" id="inquiryTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="details-tab" data-bs-toggle="tab" 
+                            data-bs-target="#details" type="button">
+                        <i class="bi bi-info-circle"></i> 詳細
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="history-tab" data-bs-toggle="tab" 
+                            data-bs-target="#history" type="button">
+                        <i class="bi bi-clock-history"></i> 対応履歴
+                    </button>
+                </li>
+            </ul>
+
+            <!-- タブコンテンツ -->
+            <div class="tab-content" id="inquiryTabContent">
+                <!-- 詳細タブ -->
+                <div class="tab-pane fade show active" id="details" role="tabpanel">
+                    <div class="row">
+                        <!-- 左カラム: 問い合わせ情報 -->
+                        <div class="col-md-8">
+                            <h5 class="mb-3 text-primary">
+                                <i class="bi bi-clipboard"></i> 問い合わせ情報
+                            </h5>
+                            
+                            <div class="info-row">
+                                <span class="info-label">問い合わせ番号:</span>
+                                <strong>INQ-20251108-0001</strong>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">件名:</span>
+                                製品Aの使用方法について
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">詳細内容:</span>
+                                <p class="mt-2">
+                                    製品Aを購入したが、セットアップ方法がわからない。<br>
+                                    マニュアルを見ても初期設定の手順が複雑で理解できない。<br>
+                                    特に、ネットワーク接続の部分で躓いている。<br>
+                                    できるだけ早く使い始めたい。
+                                </p>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">カテゴリ:</span>
+                                製品関連 > 使い方・操作方法 > 初期設定
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">製品:</span>
+                                製品A - スタンダード版
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">優先度:</span>
+                                <span class="priority-high"><i class="bi bi-circle-fill"></i> 高</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">ステータス:</span>
+                                <span class="badge badge-in-progress">対応中</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">受付チャネル:</span>
+                                <i class="bi bi-telephone"></i> 電話
+                            </div>
+
+                            <h5 class="mb-3 text-primary mt-4">
+                                <i class="bi bi-person-check"></i> 担当情報
+                            </h5>
+                            
+                            <div class="info-row">
+                                <span class="info-label">担当者:</span>
+                                田中 太郎（自分）
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">担当部署:</span>
+                                カスタマーサポート部
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">割当日時:</span>
+                                2025-11-08 14:00
+                            </div>
+
+                            <h5 class="mb-3 text-primary mt-4">
+                                <i class="bi bi-calendar-event"></i> 日時情報
+                            </h5>
+                            
+                            <div class="info-row">
+                                <span class="info-label">作成日時:</span>
+                                2025-11-08 14:00:23
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">更新日時:</span>
+                                2025-11-08 15:30:45
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">SLA期限:</span>
+                                <span class="text-danger">2025-11-08 18:00</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">初回応答日時:</span>
+                                2025-11-08 14:05:12
+                            </div>
+
+                            <div class="mt-4">
+                                <button class="btn btn-outline-primary me-2">
+                                    <i class="bi bi-pencil"></i> 編集
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="bi bi-printer"></i> 印刷
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 右カラム: 顧客情報 -->
+                        <div class="col-md-4">
+                            <h5 class="mb-3 text-primary">
+                                <i class="bi bi-person"></i> 顧客情報
+                            </h5>
+                            
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        山田 花子
+                                        <span class="customer-rank-vip ms-2">
+                                            <i class="bi bi-star-fill"></i> VIP
+                                        </span>
+                                    </h6>
+                                    <p class="card-text">
+                                        <small class="text-muted">ヤマダ ハナコ</small>
+                                    </p>
+                                    <hr>
+                                    <p class="mb-2">
+                                        <i class="bi bi-phone"></i> 090-1234-5678
+                                    </p>
+                                    <p class="mb-2">
+                                        <i class="bi bi-envelope"></i> yamada@example.com
+                                    </p>
+                                    <p class="mb-2">
+                                        <i class="bi bi-geo-alt"></i> 東京都渋谷区
+                                    </p>
+                                    <hr>
+                                    <p class="mb-1">
+                                        <small class="text-muted">顧客コード: C00001</small>
+                                    </p>
+                                    <p class="mb-1">
+                                        <small class="text-muted">登録日: 2024-01-15</small>
+                                    </p>
+                                    <p class="mb-0">
+                                        <small class="text-muted">総問い合わせ数: 8件</small>
+                                    </p>
+                                    <button class="btn btn-sm btn-outline-primary w-100 mt-3">
+                                        顧客詳細を表示
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">過去の問い合わせ</h6>
+                                    <ul class="list-unstyled small">
+                                        <li class="mb-2">
+                                            <a href="#">INQ-20251025-0012</a><br>
+                                            <small class="text-muted">請求内容の確認</small>
+                                        </li>
+                                        <li class="mb-2">
+                                            <a href="#">INQ-20250920-0045</a><br>
+                                            <small class="text-muted">製品の不具合報告</small>
+                                        </li>
+                                        <li class="mb-2">
+                                            <a href="#">INQ-20250815-0031</a><br>
+                                            <small class="text-muted">オプション追加の相談</small>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary w-100">
+                                        すべて表示
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 対応履歴タブ -->
+                <div class="tab-pane fade" id="history" role="tabpanel">
+                    <h5 class="mb-4 text-primary">
+                        <i class="bi bi-clock-history"></i> 対応履歴
+                    </h5>
+
+                    <!-- 対応履歴一覧 -->
+                    <div class="response-item">
+                        <div class="response-header">
+                            <div>
+                                <strong><i class="bi bi-person-circle"></i> 田中 太郎</strong>
+                                <span class="badge bg-secondary ms-2">電話対応</span>
+                            </div>
+                            <small class="text-muted">2025-11-08 15:30</small>
+                        </div>
+                        <div class="response-body">
+                            顧客に対して、マニュアルの該当ページを案内。<br>
+                            ネットワーク接続については、Wi-Fi設定の確認方法を電話で説明。<br>
+                            設定完了を確認し、動作テストも実施。問題なく動作することを確認した。<br>
+                            顧客から感謝の言葉をいただいた。
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-arrow-right-circle"></i> 
+                                ステータス変更: <strong>対応中</strong> → <strong>解決済み</strong>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="response-item">
+                        <div class="response-header">
+                            <div>
+                                <strong><i class="bi bi-person-circle"></i> 田中 太郎</strong>
+                                <span class="badge bg-info ms-2">初回対応</span>
+                            </div>
+                            <small class="text-muted">2025-11-08 14:05</small>
+                        </div>
+                        <div class="response-body">
+                            顧客から電話を受付。<br>
+                            製品Aのセットアップマニュアルは同梱されているが、<br>
+                            ネットワーク接続の部分がわかりにくいとのこと。<br>
+                            オンラインマニュアルのURLを案内し、該当ページを確認中。
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-arrow-right-circle"></i> 
+                                ステータス変更: <strong>新規</strong> → <strong>対応中</strong>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="response-item">
+                        <div class="response-header">
+                            <div>
+                                <strong><i class="bi bi-robot"></i> システム</strong>
+                                <span class="badge bg-dark ms-2">自動記録</span>
+                            </div>
+                            <small class="text-muted">2025-11-08 14:00</small>
+                        </div>
+                        <div class="response-body">
+                            問い合わせが登録されました。<br>
+                            担当者: 田中 太郎（ラウンドロビン方式により自動割当）
+                        </div>
+                    </div>
+
+                    <!-- 新規対応追加フォーム -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-primary text-white">
+                            <i class="bi bi-plus-circle"></i> 新規対応記録を追加
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="responseType" class="form-label">対応タイプ</label>
+                                    <select class="form-select" id="responseType">
+                                        <option value="call">電話対応</option>
+                                        <option value="internal_note">内部メモ</option>
+                                        <option value="status_change">ステータス変更</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="responseText" class="form-label">対応内容</label>
+                                    <textarea class="form-control" id="responseText" rows="4" 
+                                              placeholder="対応内容を入力してください"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newStatus" class="form-label">ステータス変更</label>
+                                    <select class="form-select" id="newStatus">
+                                        <option value="">変更なし</option>
+                                        <option value="in_progress">対応中</option>
+                                        <option value="pending">保留中</option>
+                                        <option value="resolved">解決済み</option>
+                                        <option value="closed">クローズ</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save"></i> 対応記録を保存
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画面モックアップ一覧 - コールセンターシステム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 50px 0;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .header h1 {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .card-mockup {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-mockup:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .card-mockup h5 {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .card-mockup a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .badge-operator {
+            background-color: #667eea;
+        }
+        .badge-admin {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📞 コールセンターシステム</h1>
+            <h2 class="h4 text-muted">フェーズ1 画面モックアップ一覧</h2>
+            <p class="mb-0">全9画面のデザインモックアップです。各リンクをクリックして画面を確認できます。</p>
+        </div>
+
+        <div class="row">
+            <!-- オペレーター用画面 -->
+            <div class="col-md-6">
+                <h3 class="text-white mb-3">
+                    <i class="bi bi-person"></i> オペレーター用画面（5画面）
+                </h3>
+
+                <a href="01_login.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-box-arrow-in-right"></i> 01. ログイン画面</h5>
+                                <p class="text-muted mb-0">ユーザー認証、ログイン状態保持</p>
+                            </div>
+                            <span class="badge badge-operator">Operator</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="02_dashboard.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-speedometer2"></i> 02. ダッシュボード画面</h5>
+                                <p class="text-muted mb-0">対応状況、対応中案件リスト、お知らせ</p>
+                            </div>
+                            <span class="badge badge-operator">Operator</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="03_customer_search.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-search"></i> 03. 顧客検索・登録画面</h5>
+                                <p class="text-muted mb-0">顧客検索、新規顧客登録モーダル</p>
+                            </div>
+                            <span class="badge badge-operator">Operator</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="04_inquiry_create.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-plus-circle"></i> 04. 問い合わせ登録画面</h5>
+                                <p class="text-muted mb-0">問い合わせ情報入力、担当者割当</p>
+                            </div>
+                            <span class="badge badge-operator">Operator</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="05_inquiry_detail.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-file-earmark-text"></i> 05. 問い合わせ詳細画面</h5>
+                                <p class="text-muted mb-0">詳細情報、対応履歴、SLAタイマー</p>
+                            </div>
+                            <span class="badge badge-operator">Operator</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 管理者用画面 -->
+            <div class="col-md-6">
+                <h3 class="text-white mb-3">
+                    <i class="bi bi-shield-check"></i> 管理者用画面（4画面）
+                </h3>
+
+                <a href="06_category_master.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-tags"></i> 06. カテゴリマスタ管理</h5>
+                                <p class="text-muted mb-0">3階層カテゴリ管理、SLA設定</p>
+                            </div>
+                            <span class="badge badge-admin">Admin</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="07_product_master.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-box-seam"></i> 07. 製品マスタ管理</h5>
+                                <p class="text-muted mb-0">製品情報管理、製品タイプ設定</p>
+                            </div>
+                            <span class="badge badge-admin">Admin</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="08_user_master.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-people"></i> 08. ユーザーマスタ管理</h5>
+                                <p class="text-muted mb-0">ユーザー管理、役割・スキル設定</p>
+                            </div>
+                            <span class="badge badge-admin">Admin</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="09_department_master.html" target="_blank">
+                    <div class="card-mockup">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5><i class="bi bi-building"></i> 09. 部署マスタ管理</h5>
+                                <p class="text-muted mb-0">部署管理、階層構造、責任者設定</p>
+                            </div>
+                            <span class="badge badge-admin">Admin</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="card-mockup" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h5 style="color: white;"><i class="bi bi-info-circle"></i> 使用技術</h5>
+                    <ul class="mb-0">
+                        <li>HTML5 / CSS3</li>
+                        <li>Bootstrap 5.3.0</li>
+                        <li>Bootstrap Icons 1.11.0</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="header mt-4">
+            <h4 class="mb-3">📝 注意事項</h4>
+            <ul class="mb-0">
+                <li>これらは<strong>デザインモックアップ</strong>です。実際の機能は実装されていません。</li>
+                <li>ボタンクリックやフォーム送信は動作しません（静的HTML）。</li>
+                <li>インターネット接続が必要です（Bootstrap・アイコンはCDNから読み込み）。</li>
+                <li>デスクトップブラウザでの閲覧を推奨します（1920x1080想定）。</li>
+            </ul>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="text-white">
+                <small>Version 1.0.0 | © 2025 CallCenter System | AI駆動開発チーム</small>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

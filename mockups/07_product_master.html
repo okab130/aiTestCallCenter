@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>製品マスタ管理 - コールセンターシステム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .user-info {
+            color: white;
+            font-size: 14px;
+        }
+        .main-content {
+            padding: 30px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="02_dashboard.html">📞 コールセンターシステム</a>
+            <div class="d-flex align-items-center">
+                <span class="user-info me-3">
+                    <i class="bi bi-person-circle"></i> 管理者: 管理 太郎
+                </span>
+                <button class="btn btn-outline-light btn-sm">ログアウト</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="mb-4">
+            <h2>製品マスタ管理</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="02_dashboard.html">ダッシュボード</a></li>
+                    <li class="breadcrumb-item">マスタ管理</li>
+                    <li class="breadcrumb-item active" aria-current="page">製品マスタ</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="content-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">
+                    <i class="bi bi-box-seam"></i> 製品一覧
+                </h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="bi bi-plus-circle"></i> 新規製品追加
+                </button>
+            </div>
+
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th>製品コード</th>
+                        <th>製品名</th>
+                        <th>製品タイプ</th>
+                        <th>バージョン</th>
+                        <th>メーカー</th>
+                        <th>リリース日</th>
+                        <th>サポート終了日</th>
+                        <th>状態</th>
+                        <th style="width: 150px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>PRD-A-STD</strong></td>
+                        <td>製品A - スタンダード版</td>
+                        <td><span class="badge bg-info">Software</span></td>
+                        <td>v3.2.1</td>
+                        <td>株式会社ABC</td>
+                        <td>2024-01-15</td>
+                        <td>2027-01-14</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" title="編集">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" title="詳細">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" title="削除">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>PRD-A-PRO</strong></td>
+                        <td>製品A - プロ版</td>
+                        <td><span class="badge bg-info">Software</span></td>
+                        <td>v3.2.1</td>
+                        <td>株式会社ABC</td>
+                        <td>2024-01-15</td>
+                        <td>2027-01-14</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>PRD-B-BASIC</strong></td>
+                        <td>製品B - ベーシック</td>
+                        <td><span class="badge bg-primary">Hardware</span></td>
+                        <td>v2.0</td>
+                        <td>XYZ電機</td>
+                        <td>2023-06-01</td>
+                        <td>2028-05-31</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>PRD-B-ADV</strong></td>
+                        <td>製品B - アドバンス</td>
+                        <td><span class="badge bg-primary">Hardware</span></td>
+                        <td>v2.0</td>
+                        <td>XYZ電機</td>
+                        <td>2023-06-01</td>
+                        <td>2028-05-31</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>SVC-C-MONTH</strong></td>
+                        <td>サービスC - 月額プラン</td>
+                        <td><span class="badge bg-success">Service</span></td>
+                        <td>-</td>
+                        <td>株式会社DEF</td>
+                        <td>2024-04-01</td>
+                        <td>-</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>SVC-C-YEAR</strong></td>
+                        <td>サービスC - 年額プラン</td>
+                        <td><span class="badge bg-success">Service</span></td>
+                        <td>-</td>
+                        <td>株式会社DEF</td>
+                        <td>2024-04-01</td>
+                        <td>-</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td>7</td>
+                        <td><strong>PRD-X-OLD</strong></td>
+                        <td>製品X（旧モデル）</td>
+                        <td><span class="badge bg-primary">Hardware</span></td>
+                        <td>v1.5</td>
+                        <td>旧メーカー</td>
+                        <td>2020-03-01</td>
+                        <td>2024-02-29</td>
+                        <td><span class="badge bg-danger">サポート終了</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 新規製品追加モーダル -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-plus-circle"></i> 新規製品追加
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">製品コード <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required 
+                                       placeholder="例: PRD-NEW-001">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">製品名 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required 
+                                       placeholder="例: 新製品 - エディション">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">製品タイプ <span class="text-danger">*</span></label>
+                                <select class="form-select" required>
+                                    <option value="">選択してください</option>
+                                    <option value="hardware">Hardware</option>
+                                    <option value="software">Software</option>
+                                    <option value="service">Service</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">カテゴリ</label>
+                                <select class="form-select">
+                                    <option value="">選択してください</option>
+                                    <option value="1">製品関連</option>
+                                    <option value="3">技術サポート</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">バージョン</label>
+                                <input type="text" class="form-control" placeholder="例: v1.0.0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">型番</label>
+                                <input type="text" class="form-control" placeholder="例: MODEL-001">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">メーカー</label>
+                                <input type="text" class="form-control" placeholder="例: 株式会社〇〇">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">リリース日</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">サポート終了日</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">マニュアルURL</label>
+                                <input type="url" class="form-control" 
+                                       placeholder="https://example.com/manual">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">説明</label>
+                                <textarea class="form-control" rows="3" 
+                                          placeholder="製品の説明を入力してください"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">状態</label>
+                                <select class="form-select">
+                                    <option value="1" selected>有効</option>
+                                    <option value="0">無効</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary">登録</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
